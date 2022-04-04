@@ -8,6 +8,7 @@ body{
     /*background-image: url("https://cdn.pixabay.com/photo/2015/08/05/03/53/brazil-875577_960_720.jpg");*/
     background-size: cover;
     background-repeat: no-repeat;
+    margin: 0;
 }
 
 .container-title {
@@ -17,6 +18,11 @@ body{
 .container {
     display: flex;
     justify-content: space-between;
+}
+
+.oitavas {
+    display: flex;
+    flex-direction: column;
 }
 
 .grupos div {
@@ -35,6 +41,8 @@ body{
     height: 40px;
     border-radius: 10cm;
     border-color: white;
+    background-color: aquamarine;
+    cursor: move;
 }
 
 p {
@@ -46,4 +54,20 @@ p {
     width: 100px;
     border-color: white;
     border: solid;
+}
+
+.dropzone {
+    padding: 1em;
+}
+
+#zona1 {
+    background-color: brown;
+}
+
+#zona2 {
+    background-color: aqua;
+}
+
+.arrastando {
+    opacity: 0.5;
 }
