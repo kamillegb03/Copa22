@@ -33,6 +33,11 @@
     coreia: "./img/H/south-korea.png"
 } */
 
+// Material utilizado para desenvolver o código:
+// youtube: https://www.youtube.com/watch?v=6wn8hpUcEcM
+// github-video: https://github.com/rocketseat-content/youtube-masterclass-drag-and-drop-raiz
+// w3schools: https://www.w3schools.com/jsref/dom_obj_all.asp
+
 const bandeiras = document.querySelectorAll('.bandeira')
 const dropzones = document.querySelectorAll('.dropzone')
 
