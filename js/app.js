@@ -33,13 +33,6 @@
     coreia: "./img/H/south-korea.png"
 } */
 
-
-
-
-function log(message) {
-    console.log('> ' + message)
-}
-
 const bandeiras = document.querySelectorAll('.bandeira')
 const dropzones = document.querySelectorAll('.dropzone')
 
@@ -52,7 +45,6 @@ bandeiras.forEach(bandeira => {
 })
 
 function dragstart() {
-    // log('bandeira: Start dragging ')
     dropzones.forEach(dropzone => dropzone.classList.add('highlight'))
 
     // this = bandeira
@@ -60,11 +52,10 @@ function dragstart() {
 }
 
 function drag() {
-    // log('bandeira: Is dragging ')
+    // Bandeira está sendo arrastada
 }
 
 function dragend() {
-    // log('bandeira: Stop drag! ')
     dropzones.forEach(dropzone => dropzone.classList.remove('highlight'))
 
     // this = bandeira
@@ -82,7 +73,7 @@ dropzones.forEach(dropzone => {
 })
 
 function dragenter() {
-    // log('DROPZONE: Enter in zone ')
+    // entrou na zona
 }
 
 function dragover(event) {
@@ -92,29 +83,30 @@ function dragover(event) {
     const bandeiraArrastada = document.querySelector('.is-dragging').cloneNode(true)
     flag = true;
 
+    // verifica se a bandeira arrastada já existe dentro da zona
     this.childNodes.forEach(node => {
         if (node.src == bandeiraArrastada.src) {
             flag = false;
         }
     })
+
+    // verifica se a zona possui espaço livre (limite de bandeiras: 2)
     if (this.childElementCount <= 1 && flag) {
         event.preventDefault()
     }
 }
 
 function dragleave() {
-    // log('DROPZONE: Leave ')
     // this = dropzone
     this.classList.remove('over')
 
 }
 
 function drop() {
-    // log('DROPZONE: dropped ')
-
     // pega a bandeira que está sendo arrastada
     const bandeiraArrastada = document.querySelector('.is-dragging').cloneNode(true)
-    bandeiraArrastada.setAttribute('onclick','removeBandeira(this)')
+    bandeiraArrastada.setAttribute('onclick', 'removeBandeira(this)')
+
     // this = dropzone
     this.appendChild(bandeiraArrastada)
     this.classList.remove('over')
