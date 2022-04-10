@@ -34,87 +34,48 @@
 } */
 
 // Material utilizado para desenvolver o código:
-// youtube: https://www.youtube.com/watch?v=6wn8hpUcEcM
-// github-video: https://github.com/rocketseat-content/youtube-masterclass-drag-and-drop-raiz
-// w3schools: https://www.w3schools.com/jsref/dom_obj_all.asp
+// Tirei do rabiscoviski essa loucura...
 
 const bandeiras = document.querySelectorAll('.bandeira')
 const dropzones = document.querySelectorAll('.dropzone')
 
+let flag = false; // true: caso tenha bandeira selecionada // false: caso não tenha bandeira selecionada
+
 
 /* adicionar ouvidores de evento para cara bandeira */
 bandeiras.forEach(bandeira => {
-    bandeira.addEventListener('dragstart', dragstart)
-    bandeira.addEventListener('drag', drag)
-    bandeira.addEventListener('dragend', dragend)
+    bandeira.setAttribute('onclick', 'selecionarBandeira(this)')
 })
 
-function dragstart() {
-    dropzones.forEach(dropzone => dropzone.classList.add('highlight'))
-
-    // this = bandeira
-    this.classList.add('is-dragging')
+function selecionarBandeira(bandeira) {
+    if(!flag) {
+        // caso não exista bandeira selecionada
+        bandeira.classList.add('selected');
+        flag = true;
+    } else {
+        const bandeiraSelecionada = document.querySelector('.selected');
+        bandeiraSelecionada.classList.remove('selected');
+        bandeira.classList.add('selected');
+    }
 }
-
-function drag() {
-    // Bandeira está sendo arrastada
-}
-
-function dragend() {
-    dropzones.forEach(dropzone => dropzone.classList.remove('highlight'))
-
-    // this = bandeira
-    this.classList.remove('is-dragging')
-}
-
 
 
 /* lugar onde as bandeiras iram ser soltas */
 dropzones.forEach(dropzone => {
-    dropzone.addEventListener('dragenter', dragenter)
-    dropzone.addEventListener('dragover', dragover)
-    dropzone.addEventListener('dragleave', dragleave)
-    dropzone.addEventListener('drop', drop)
+    dropzone.setAttribute('onclick', 'soltar(this)')
 })
 
-function dragenter() {
-    // entrou na zona
-}
+function soltar(dropzone) {
+    if(flag) {
+        const copiaBandeira = document.querySelector('.selected').cloneNode(true);
+        copiaBandeira.setAttribute('onclick', 'removeBandeira(this)');
+        copiaBandeira.classList.remove('selected');
 
-function dragover(event) {
-    // this = dropzone
-    this.classList.add('over')
-
-    const bandeiraArrastada = document.querySelector('.is-dragging').cloneNode(true)
-    flag = true;
-
-    // verifica se a bandeira arrastada já existe dentro da zona
-    this.childNodes.forEach(node => {
-        if (node.src == bandeiraArrastada.src) {
-            flag = false;
-        }
-    })
-
-    // verifica se a zona possui espaço livre (limite de bandeiras: 2)
-    if (this.childElementCount <= 1 && flag) {
-        event.preventDefault()
+        dropzone.appendChild(copiaBandeira);
+        flag = false;
+        
+        document.querySelector('.selected').classList.remove('selected');
     }
-}
-
-function dragleave() {
-    // this = dropzone
-    this.classList.remove('over')
-
-}
-
-function drop() {
-    // pega a bandeira que está sendo arrastada
-    const bandeiraArrastada = document.querySelector('.is-dragging').cloneNode(true)
-    bandeiraArrastada.setAttribute('onclick', 'removeBandeira(this)')
-
-    // this = dropzone
-    this.appendChild(bandeiraArrastada)
-    this.classList.remove('over')
 }
 
 function removeBandeira(bandeiraSelecionada) {
